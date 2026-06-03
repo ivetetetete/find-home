@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Navbar from "./components/navbar";
-import { ArrowRight, Award, HandHeart, MessagesSquare } from "lucide-react";
+import { ArrowRight, Award, Building, CarFront, Flower, HandHeart, HomeIcon, Mail, MessagesSquare, Phone, Sun, User, WavesLadder } from "lucide-react";
 import Link from "next/link";
 import Footer from "./components/footer";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import ProgressBar from "./components/progressBar";
 
 type RevealProps = {
   children: ReactNode;
@@ -27,6 +28,13 @@ const Reveal = ({ children, delay = 0, y = 30 }: RevealProps) => (
 );
 
 export default function Home() {
+  const [step, setStep] = useState(1);
+
+  const handleNextStep = () => {
+    if (step < 7) {
+      setStep(step + 1);
+    }
+  }
   return (
     <>
       <div className="flex flex-col flex-1 items-center justify-center font-sans">
@@ -63,7 +71,7 @@ export default function Home() {
                     className="border border-blue-800 rounded-lg p-3 w-full active:scale-[0.98] transition-transform"
                     onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                   >
-                    <p className="text-blue-800 font-semibold">Únete a nuestro equipo</p>
+                    <p className="text-blue-800 font-semibold">Infórmate gratis</p>
                   </button>
                 </Reveal>
               </section>
@@ -180,63 +188,181 @@ export default function Home() {
 
 
           <section id="contact" className="flex flex-col mt-10 w-full p-6 max-w-6xl mx-auto">
-            <Reveal>
-              <h2 className="text-xl font-semibold text-blue-900 mb-2 text-center">Vols convertir-te en un assessor immobiliari?</h2>
-              <p className="text-center text-base text-neutral-700 mb-6">Un futur sòlid, solvent, ple d’oportunitats, on el límit el poses tu.</p>
-            </Reveal>
+            <Reveal delay={0.3}>
+              <div>
+                <h2 className="text-2xl text-center font-semibold text-blue-900">¿Cuanto cuesta tu propiedad?</h2>
+                <p className="text-sm text-neutral-600 text-center mt-2">Obtén una valoración gratuita de tu propiedad de nuestro equipo de expertos en solo unos pocos pasos sencillos.</p>
+              </div>
 
-            <div className="flex flex-col md:grid md:grid-cols-2 items-start gap-8 md:gap-12 w-full">
-              <Reveal delay={0.2}>
-                <Image src="/team.png" alt="Assessor" width={500} height={300} className="rounded-xl shadow-lg mb-6" />
-              </Reveal>
+              <ProgressBar step={step} />
 
-              <Reveal delay={0.3}>
-                <div className="bg-white shadow-xl rounded-2xl p-6 mb-8 border border-gray-100">
-                  <form className="space-y-4">
-                    <div>
-                      <label htmlFor="name" className="block text-blue-900 text-sm font-medium mb-1">Nom i cognoms*</label>
-                      <input id="name" type="text" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all" />
-                    </div>
+              <div className="bg-white shadow rounded-xl p-5">
+                {step === 1 && (
+                  <>
+                    <p className="text-blue-900 textx-lg font-semibold text-center">¿Que tipo de propiedad deseas valorar?</p>
 
-                    <div>
-                      <label htmlFor="email" className="block text-blue-900 text-sm font-medium mb-1">Correu electrònic*</label>
-                      <input id="email" type="email" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all" />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="phone" className="block text-blue-900 text-sm font-medium mb-1">Telèfon*</label>
-                        <input id="phone" type="tel" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all" />
+                    <div className="flex flex-col md:flex-row gap-x-3">
+                      <div className="flex items-center gap-x-2 border border-gray-200 rounded-lg p-3 mt-4 cursor-pointer hover:bg-blue-100 hover:border-blue-300 transition-all md:flex-1 md:flex-col md:gap-y-2" onClick={handleNextStep}>
+                        <HomeIcon size={18} className="text-blue-900 inline-block mr-2 md:mr-0 md:size-10" />
+                        <p className="text-blue-900 font-semibold md:text-xl">Casa</p>
                       </div>
-                      <div>
-                        <label htmlFor="location" className="block text-blue-900 text-sm font-medium mb-1">Localitat</label>
-                        <input id="location" type="text" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all" />
+
+                      <div className="flex items-center gap-x-2 border border-gray-200 rounded-lg p-3 mt-4 cursor-pointer hover:bg-blue-100 hover:border-blue-300 transition-all md:flex-1 md:flex-col md:gap-y-2" onClick={handleNextStep}>
+                        <Building size={18} className="text-blue-900 inline-block mr-2 md:size-10 md:mr-0" />
+                        <p className="text-blue-900 font-semibold md:text-xl">Piso</p>
                       </div>
                     </div>
+                  </>
+                )}
 
-                    <label htmlFor="cv" className="block text-blue-900 text-sm font-medium mb-1">CV</label>
-                    <input id="cv" type="file" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all" />
+                {step === 2 && (
+                  <>
+                    <p className="text-blue-900 textx-lg font-semibold text-center">¿En que localidad se encuentra tu propiedad?</p>
 
-                    <div>
-                      <label htmlFor="message" className="block text-blue-900 text-sm font-medium mb-1">Missatge</label>
-                      <textarea id="message" rows={4} className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"></textarea>
-                    </div>
+                    <input type="text" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring focus:ring-blue-300 outline-none transition-all mt-4 placeholder:text-neutral-400 text-neutral-600" placeholder="Introduce la localidad" />
 
-                    <button type="submit" className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-3 rounded-lg w-full shadow-lg transition-colors mt-4">
-                      Enviar sol·licitud
+                    <button className="bg-blue-900 rounded-lg p-2 flex flex-row items-center gap-2 mx-auto shadow transition-transform hover:scale-105 mt-4" onClick={handleNextStep}>
+                      <p className="text-center text-white font-semibold">Siguiente</p>
+                      <ArrowRight size={20} className="text-white" />
                     </button>
+                  </>
+                )}
 
-                    <div className="flex items-center mt-4">
-                      <input id="privacy" type="checkbox" className="  mr-2" required />
-                      <label htmlFor="privacy" className="text-xs text-neutral-500">
-                        He llegit i accepto la{' '}
-                        <Link href="/privacy-policy" className="underline text-blue-800">Política de privacitat</Link>
+                {step === 3 && (
+                  <>
+                    <p className="text-blue-900 textx-lg font-semibold text-center">Detalles de la propiedad</p>
+
+                    <select className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring focus:ring-blue-300 outline-none transition-all mt-4 text-neutral-600">
+                      <option className="text-neutral-600" value="">Estado de la propiedad</option>
+                      <option value="1" className="text-neutral-600">Obra nueva</option>
+                      <option value="2" className="text-neutral-600">Buen estado</option>
+                      <option value="3" className="text-neutral-600">A reformar</option>
+                    </select>
+
+                    <div>
+                      <input type="number" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-300 outline-none transition-all mt-4 placeholder:text-neutral-400 text-neutral-600" placeholder="Superficie construida (m²)" />
+
+                      <input type="number" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-300 outline-none transition-all mt-4 placeholder:text-neutral-400 text-neutral-600" placeholder="Superficie total (m²)" />
+                    </div>
+
+                    <div>
+                      <input type="number" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-300 outline-none transition-all mt-4 placeholder:text-neutral-400 text-neutral-600" placeholder="Número de habitaciones" />
+                      <input type="number" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-300 outline-none transition-all mt-4 placeholder:text-neutral-400 text-neutral-600" placeholder="Número de baños" />
+                    </div>
+
+                    <button className="bg-blue-900 rounded-lg p-2 flex flex-row items-center gap-2 mx-auto shadow transition-transform hover:scale-105 mt-4" onClick={handleNextStep}>
+                      <p className="text-center text-white font-semibold">Siguiente</p>
+                      <ArrowRight size={20} className="text-white" />
+                    </button>
+                  </>
+                )}
+
+                {step === 4 && (
+                  <>
+                    <p className="text-blue-900 textx-lg font-semibold text-center">Características</p>
+
+                    <div>
+                      <label className="flex items-center gap-x-2 mt-4 cursor-pointer border border-gray-200 rounded-lg p-3 hover:bg-blue-100 hover:border-blue-300 transition-all">
+                        <input type="checkbox" className="mr-2 sr-only" />
+                        <Sun size={24} className="text-blue-900 inline-block mr-2" />
+                        <p className="text-blue-900 font-semibold">Terraza</p>
+                      </label>
+
+                      <label className="flex items-center gap-x-2 mt-4 cursor-pointer border border-gray-200 rounded-lg p-3 hover:bg-blue-100 hover:border-blue-300 transition-all">
+                        <input type="checkbox" className="mr-2 sr-only" />
+                        <WavesLadder size={24} className="text-blue-900 inline-block mr-2" />
+                        <p className="text-blue-900 font-semibold">Piscina</p>
+                      </label>
+
+                      <label className="flex items-center gap-x-2 mt-4 cursor-pointer border border-gray-200 rounded-lg p-3 hover:bg-blue-100 hover:border-blue-300 transition-all">
+                        <input type="checkbox" className="mr-2 sr-only" />
+                        <CarFront size={24} className="text-blue-900 inline-block mr-2" />
+                        <p className="text-blue-900 font-semibold">Garaje</p>
+                      </label>
+
+                      <label className="flex items-center gap-x-2 mt-4 cursor-pointer border border-gray-200 rounded-lg p-3 hover:bg-blue-100 hover:border-blue-300 transition-all">
+                        <input type="checkbox" className="mr-2 sr-only" />
+                        <Flower size={24} className="text-blue-900 inline-block mr-2" />
+                        <p className="text-blue-900 font-semibold">Jardín</p>
                       </label>
                     </div>
-                  </form>
-                </div>
-              </Reveal>
-            </div>
+
+                    <button className="bg-blue-900 rounded-lg p-2 flex flex-row items-center gap-2 mx-auto shadow transition-transform hover:scale-105 mt-4" onClick={handleNextStep}>
+                      <p className="text-center text-white font-semibold">Siguiente</p>
+                      <ArrowRight size={20} className="text-white" />
+                    </button>
+                  </>
+                )}
+
+                {step === 5 && (
+                  <>
+                    <p className="text-blue-900 textx-lg font-semibold text-center">Cuéntanos más</p>
+
+                    <div>
+                      <textarea name="more_info" id="more_info" className="w-full p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring focus:ring-blue-300 outline-none transition-all mt-4 placeholder:text-neutral-400 h-32 text-neutral-600" placeholder="Comparte cualquier información adicional que consideres relevante"></textarea>
+                    </div>
+
+                    <p className="text-xs text-neutral-400">Cuánto más detalles proporciones, más precisa será tu valoración</p>
+
+                    <button className="bg-blue-900 rounded-lg p-2 flex flex-row items-center gap-2 mx-auto shadow transition-transform hover:scale-105 mt-4" onClick={handleNextStep}>
+                      <p className="text-center text-white font-semibold">Siguiente</p>
+                      <ArrowRight size={20} className="text-white" />
+                    </button>
+                  </>
+                )}
+
+                {step === 6 && (
+                  <>
+                    <p className="text-blue-900 textx-lg font-semibold text-center">¿Qué te interesa hacer?</p>
+
+                    <div>
+                      <label className="flex items-center gap-x-2 mt-4 cursor-pointer border border-gray-200 rounded-lg p-3 hover:bg-blue-100 hover:border-blue-300 transition-all">
+                        <input type="checkbox" className="mr-2 sr-only" />
+                        <p className="text-blue-900 font-semibold">Quiero vender mi propiedad</p>
+                      </label>
+
+                      <label className="flex items-center gap-x-2 mt-4 cursor-pointer border border-gray-200 rounded-lg p-3 hover:bg-blue-100 hover:border-blue-300 transition-all">
+                        <input type="checkbox" className="mr-2 sr-only" />
+                        <p className="text-blue-900 font-semibold">Quiero alquilar una propiedad</p>
+                      </label>
+                    </div>
+
+                    <button className="bg-blue-900 rounded-lg p-2 flex flex-row items-center gap-2 mx-auto shadow transition-transform hover:scale-105 mt-4" onClick={handleNextStep}>
+                      <p className="text-center text-white font-semibold">Siguiente</p>
+                      <ArrowRight size={20} className="text-white" />
+                    </button>
+                  </>
+                )}
+
+                {step === 7 && (
+                  <>
+                    <p className="text-blue-900 textx-lg font-semibold text-center">Tu información de contacto</p>
+
+                    <div className="flex items-center gap-x-3 p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all mt-4 ">
+                      <User size={24} className="text-neutral-400 inline-block" />
+                      <input type="text" className="w-full placeholder:text-neutral-400 outline-0 text-neutral-600 " placeholder="Nombre completo" />
+                    </div>
+
+                    <div className="flex items-center gap-x-3 p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all mt-4 ">
+                      <Mail size={24} className="text-neutral-400 inline-block" />
+                      <input type="email" className="w-full placeholder:text-neutral-400 outline-0 text-neutral-600 " placeholder="Correo electrónico" />
+                    </div>
+
+                    <div className="flex items-center gap-x-3 p-2.5 bg-neutral-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all mt-4 ">
+                      <Phone size={24} className="text-neutral-400 inline-block" />
+                      <input type="tel" className="w-full placeholder:text-neutral-400 outline-0 text-neutral-600 " placeholder="Número de teléfono" />
+                    </div>
+
+                    <button className="bg-blue-900 rounded-lg p-2 flex flex-row items-center gap-2 mx-auto shadow transition-transform hover:scale-105 mt-4" onClick={handleNextStep}>
+                      <p className="text-center text-white font-semibold">Enviar</p>
+                      <ArrowRight size={20} className="text-white" />
+                    </button>
+                  </>
+                )}
+
+
+              </div>
+            </Reveal>
           </section>
         </main>
       </div>

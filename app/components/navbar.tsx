@@ -42,7 +42,7 @@ export default function Navbar() {
             <nav className="flex items-center justify-between p-4 bg-white border-b w-full sticky top-0 z-[100] px-14">
                 <div className="flex items-center">
                     <Image src="/favicon.png" alt="Find Home Logo" width={32} height={32} className="mr-2" />
-                    <div className="text-xl font-bold text-blue-900">Find Home</div>
+                    <div className="text-xl font-bold text-blue-900">FindHome</div>
                 </div>
 
                 <div className="hidden md:flex space-x-6">
@@ -78,7 +78,7 @@ export default function Navbar() {
             <div className={`fixed top-0 left-0 h-full w-[280px] bg-white shadow-2xl z-[100] transform transition-transform duration-300 ease-in-out md:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
                 }`}>
                 <div className="flex flex-col p-6 pt-16 space-y-6">
-                    <div className="text-xl font-bold text-blue-900 mb-4">Find Home</div>
+                    <div className="text-xl font-bold text-blue-900 mb-4">FindHome</div>
 
                     {menuItems.map((item) => (
                         <a

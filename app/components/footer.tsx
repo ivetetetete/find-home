@@ -11,7 +11,7 @@ export default function Footer() {
             <div className="max-w-6xl mx-auto w-full">
                 <Image
                 src="/icon.png"
-                alt="Find Home Logo"
+                alt="FindHome Logo"
                 width={48}
                 height={48}
                 className="mr-2"
@@ -26,7 +26,7 @@ export default function Footer() {
                     </div>
                     <div className="flex items-center gap-x-2">
                         <Mail size={18} className="text-gray-300 inline-block" />
-                        <Link href="mailto:inmo@findhomes.es" className="text-base text-gray-300">inmo@findhomes.es</Link>
+                        <Link href="mailto:inmo@findhomes.es" className="text-base text-gray-300">admin@findhomes.es</Link>
                     </div>
                     <div className="flex items-start gap-x-2">
                         <MapPin size={18} className="text-gray-300 inline-block" />
